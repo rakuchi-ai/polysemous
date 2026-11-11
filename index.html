@@ -1,59 +1,580 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>GMARCH英語 4択小テスト</title>
-<style>
-:root{--bg:#F3F5F9;--sf:#fff;--ink:#172033;--mut:#5d6677;--line:#d3d9e6;--ac:#3B4CCA;--acT:#fff;--ok:#1E8E5A;--okBg:#E1F3EA;--ng:#C93C4B;--ngBg:#FBE6E9;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11141B;--sf:#1A1F2A;--ink:#E7EAF3;--mut:#9AA3B5;--line:#2B3342;--ac:#8E9BFF;--acT:#10131c;--ok:#4CC68A;--okBg:#12301F;--ng:#FF7A88;--ngBg:#3A1820;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#11141B;--sf:#1A1F2A;--ink:#E7EAF3;--mut:#9AA3B5;--line:#2B3342;--ac:#8E9BFF;--acT:#10131c;--ok:#4CC68A;--okBg:#12301F;--ng:#FF7A88;--ngBg:#3A1820;color-scheme:dark}
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;-webkit-text-size-adjust:100%}
-main{max-width:560px;margin:0 auto;padding:20px 16px 40px}
-[hidden]{display:none!important}
-h1{font-size:22px;margin:8px 0 4px;letter-spacing:.02em}
-h2{margin:0}
-p{margin:0}
-.lead{color:var(--mut);font-size:14px;margin-bottom:20px}
-.sec{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-.sec h3{font-size:14px;margin:0 0 10px;color:var(--mut);font-weight:600}
-.seg{display:flex;gap:8px;flex-wrap:wrap}
-.seg button{flex:1;min-width:70px}
-button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);background:var(--sf);border-radius:10px;padding:10px 12px;min-height:44px}
-button:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-.seg button[aria-pressed="true"]{border-color:var(--ac);background:var(--ac);color:var(--acT);font-weight:600}
-.primary{width:100%;background:var(--ac);color:var(--acT);border-color:var(--ac);font-weight:700;font-size:17px;min-height:52px}
-.primary:disabled,.row button:disabled{opacity:.45;cursor:default}
-.row{display:flex;gap:8px;margin-top:10px}
-.row button{flex:1}
-.ghost{background:transparent;border-color:transparent;color:var(--mut);padding:8px}
-.big{font-size:30px;font-weight:700;line-height:1.1}
-.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .25s}
-#prog{font-size:14px;color:var(--mut);min-width:56px;text-align:right}
-.card{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:22px 18px;margin-bottom:14px}
-.pos{display:inline-block;font-size:13px;color:var(--ac);border:1px solid var(--ac);border-radius:6px;padding:0 8px;margin-bottom:8px}
-#word{font:700 40px/1.15 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;overflow-wrap:anywhere}
-.ask{color:var(--mut);font-size:14px;margin-top:8px}
-.opt{display:flex;gap:12px;width:100%;text-align:left;margin-bottom:10px;padding:12px 14px;align-items:flex-start;line-height:1.5}
-.opt .n{flex:none;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--mut);margin-top:1px}
-.opt:disabled{opacity:1;cursor:default}
-.opt.ok{border-color:var(--ok);background:var(--okBg)}
-.opt.ng{border-color:var(--ng);background:var(--ngBg)}
-.opt.ok .n{background:var(--ok);border-color:var(--ok);color:var(--sf)}
-.opt.ng .n{background:var(--ng);border-color:var(--ng);color:var(--sf)}
-#fb{min-height:28px;font-weight:700;margin:2px 0 8px}
-#fb.ok{color:var(--ok)}
-#fb.ng{color:var(--ng)}
-ul.list{list-style:none;margin:0;padding:0}
-ul.list li{padding:12px 0;border-top:1px solid var(--line)}
-ul.list li:first-child{border-top:0}
-ul.list .w{font:700 20px/1.2 "Iowan Old Style",Palatino,Georgia,serif;margin-right:8px}
-ul.list .p{font-size:12px;color:var(--mut)}
-ul.list .m{font-size:14px;color:var(--ink);margin-top:2px}
-.empty{color:var(--mut);font-size:14
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GMARCH 英語特訓アプリ - 多義語 & 派生語</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter / Noto Sans JP -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f3f4f6;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .app-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+        .btn-option {
+            transition: all 0.15s ease-in-out;
+        }
+        .btn-option:active {
+            transform: scale(0.98);
+        }
+        /* Custom progress bar transition */
+        .progress-bar-fill {
+            transition: width 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-graduation-cap text-yellow-300 text-xl"></i>
+                <h1 class="font-bold text-lg tracking-wide">GMARCH 英語特訓</h1>
+            </div>
+            <button id="btn-home" class="text-xs bg-indigo-800 hover:bg-indigo-600 px-3 py-1.5 rounded-full font-medium transition flex items-center gap-1">
+                <i class="fa-solid fa-house"></i> ホーム
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container (Mobile Frame Container) -->
+    <main class="max-w-md mx-auto w-full px-4 py-6 flex-grow flex flex-col justify-center">
+
+        <!-- SCREEN 1: Menu / Mode Selection -->
+        <div id="screen-menu" class="space-y-6">
+            <!-- App Intro Banner -->
+            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <span class="bg-yellow-400 text-indigo-950 text-xs font-black uppercase px-2.5 py-0.5 rounded-full inline-block mb-2">GMARCH 必修</span>
+                    <h2 class="text-2xl font-black mb-1">多義語 ＆ 派生語 200</h2>
+                    <p class="text-xs text-indigo-100 leading-relaxed opacity-90">
+                        差がつく「直感で予測しづらい意味」や「文脈による多義語」を攻略！間違えた問題や自信がない問題はストックできます。
+                    </p>
+                </div>
+                <i class="fa-solid fa-brain absolute -right-4 -bottom-4 text-8xl text-white opacity-10"></i>
+            </div>
+
+            <!-- Category Selector -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">出題カテゴリ</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button id="cat-all" class="cat-btn bg-indigo-50 border-2 border-indigo-600 text-indigo-700 font-bold text-xs py-2 px-1 rounded-lg text-center transition">
+                        すべて (400語)
+                    </button>
+                    <button id="cat-poly" class="cat-btn bg-white border-2 border-slate-200 text-slate-600 font-medium text-xs py-2 px-1 rounded-lg text-center hover:border-slate-300 transition">
+                        多義語 (200語)
+                    </button>
+                    <button id="cat-derived" class="cat-btn bg-white border-2 border-slate-200 text-slate-600 font-medium text-xs py-2 px-1 rounded-lg text-center hover:border-slate-300 transition">
+                        派生語 (200語)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Mode Buttons -->
+            <div class="space-y-3">
+                <button id="btn-start-normal" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-between group">
+                    <div class="flex items-center space-x-3 text-left">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-500/30 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <div class="text-base font-bold">通常テスト (10問)</div>
+                            <div class="text-xs text-indigo-200">ランダムで10問選択してテスト</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-indigo-300 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <button id="btn-start-review" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-between group disabled:opacity-50 disabled:cursor-not-allowed">
+                    <div class="flex items-center space-x-3 text-left">
+                        <div class="w-10 h-10 rounded-lg bg-amber-400/30 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </div>
+                        <div>
+                            <div class="text-base font-bold flex items-center gap-2">
+                                復習モード
+                                <span id="badge-wrong-count" class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
+                            </div>
+                            <div class="text-xs text-amber-100">間違えた語・ストックした語を復習</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-amber-200 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
+            <!-- Stats/Storage Control -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                <span><i class="fa-solid fa-floppy-disk mr-1"></i> 学習記録: 自動保存中</span>
+                <button id="btn-clear-storage" class="text-red-500 hover:text-red-700 font-medium underline">
+                    復習記録をリセット
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Active Quiz -->
+        <div id="screen-quiz" class="hidden space-y-4">
+            <!-- Progress & Stats Bar -->
+            <div class="flex items-center justify-between text-xs font-bold text-slate-500">
+                <span id="quiz-step-text">Question 1/10</span>
+                <span id="quiz-category-tag" class="bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full text-[10px]">多義語</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                <div id="progress-bar-fill" class="progress-bar-fill bg-indigo-600 h-full w-0"></div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative overflow-hidden">
+                <span id="word-pos" class="inline-block bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-2">【名詞】</span>
+                <h3 id="word-target" class="text-3xl font-extrabold text-slate-900 tracking-wide my-1">ruling</h3>
+                <p id="word-subtext" class="text-xs text-slate-400">の意味として最も適切なものを選択</p>
+            </div>
+
+            <!-- Options (4 Choices) -->
+            <div id="options-container" class="space-y-2.5">
+                <!-- Dynamically filled by JS -->
+            </div>
+
+            <!-- Feedback & Explanation Box -->
+            <div id="feedback-card" class="hidden bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <div id="feedback-banner" class="flex items-center justify-between font-bold text-sm">
+                    <!-- Dynamic Correct/Incorrect Header -->
+                </div>
+                <div class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
+                    <span class="font-bold text-slate-800 block mb-1">💡 主な意味・ニュアンス：</span>
+                    <span id="feedback-meaning-full"></span>
+                </div>
+
+                <!-- 自信がない場合のストックボタン（正解時のみ活用・手動保存用） -->
+                <button id="btn-stock-question" class="hidden w-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-1.5">
+                    <i class="fa-regular fa-bookmark text-amber-600"></i>
+                    <span>正解したけど自信がない（復習リストへ保存）</span>
+                </button>
+
+                <button id="btn-next-question" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2">
+                    次の問題へ <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Result Summary -->
+        <div id="screen-result" class="hidden space-y-6 text-center">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">テスト終了！</h3>
+                
+                <div class="py-2">
+                    <div class="text-xs text-slate-400 uppercase tracking-widest font-bold">スコア</div>
+                    <div class="text-5xl font-black text-indigo-600 my-1"><span id="result-score">0</span><span class="text-2xl text-slate-400">/10</span></div>
+                    <p id="result-evaluation" class="text-xs font-bold text-slate-500"></p>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-left text-xs space-y-2">
+                    <div class="flex justify-between text-slate-600">
+                        <span>正解数:</span>
+                        <span id="result-correct-count" class="font-bold text-emerald-600">0問</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>復習リストに追加された語:</span>
+                        <span id="result-added-wrong" class="font-bold text-red-500">0語</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>現在の復習リスト合計:</span>
+                        <span id="result-total-wrong" class="font-bold text-amber-600">0語</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <button id="btn-retry" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow transition text-sm">
+                        もう一度テストする
+                    </button>
+                    <button id="btn-back-menu" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition text-sm">
+                        メニューに戻る
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Information -->
+    <footer class="py-4 text-center text-xs text-slate-400 border-t border-slate-200">
+        GMARCH English Vocab Quiz &copy; 2026
+    </footer>
+
+    <!-- Main Logic JavaScript -->
+    <script>
+        // --- 1. VOCABULARY DATABASE (200 Polysemous + 200 Derived Words = 400 Total) ---
+        const VOCAB_DATA = [
+            // --- 多義語 (Polysemous Words: id 1 - 200) ---
+            { id: 1, type: "poly", word: "press", pos: "名/動", correct: "新聞・報道陣／強要する", full: "【名】新聞・報道陣、印刷機 【動】強要する、強く押す" },
+            { id: 2, type: "poly", word: "article", pos: "名詞", correct: "記事／品物・商品／条項", full: "【名】記事、品物・商品、条項・個条" },
+            { id: 3, type: "poly", word: "bill", pos: "名詞", correct: "請求書／紙幣／法案／くちばし", full: "【名】請求書、紙幣、法案、鳥のくちばし" },
+            { id: 4, type: "poly", word: "board", pos: "名/動", correct: "委員会・理事会／乗り込む", full: "【名】板、委員会・理事会、（船・飛行機などの）機内 【動】乗り込む" },
+            { id: 5, type: "poly", word: "charge", pos: "名/動", correct: "料金・責任・告発／請求する", full: "【名】料金、責任・担当、告発 【動】請求する、非難・告発する、充電する" },
+            { id: 6, type: "poly", word: "court", pos: "名詞", correct: "裁判所・法廷／宮廷", full: "【名】裁判所・法廷、コート（テニス等）、宮廷" },
+            { id: 7, type: "poly", word: "interest", pos: "名詞", correct: "利息・金利／利益・利害関係", full: "【名】興味・関心、利息・金利、利益・利害関係" },
+            { id: 8, type: "poly", word: "issue", pos: "名/動", correct: "（雑誌の）発行号／発行する", full: "【名】問題・論点、（雑誌などの）発行号 【動】発行する、出す" },
+            { id: 9, type: "poly", word: "last", pos: "形/動", correct: "この前の／（時間が）続く", full: "【形】最後の、この前の 【動】（時間が）続く、持ちこたえる" },
+            { id: 10, type: "poly", word: "observe", pos: "動詞", correct: "（規則等を）守る／観察する", full: "【動】観察する、（規則・法律等を）守る、（意見を）述べる" },
+            { id: 11, type: "poly", word: "subject", pos: "名/形", correct: "被験者／〜の影響を受けやすい", full: "【名】主題、科目、被験者 【形】〜の影響を受けやすい、〜に従属する" },
+            { id: 12, type: "poly", word: "plant", pos: "名詞", correct: "工場・設備／植物", full: "【名】植物、工場、（大型の）機械・設備 【動】植える" },
+            { id: 13, type: "poly", word: "address", pos: "動詞", correct: "（問題等に）取り組む／演説する", full: "【名】住所、演説 【動】（問題等に）取り組む、演説する" },
+            { id: 14, type: "poly", word: "capital", pos: "名/形", correct: "資本・大文字／死刑の", full: "【名】首都、資本、大文字 【形】主要な、死刑の" },
+            { id: 15, type: "poly", word: "fine", pos: "名/形", correct: "罰金／細かい・素晴らしい", full: "【形】素晴らしい、細かい・細密な 【名】罰金 【動】罰金を科す" },
+            { id: 16, type: "poly", word: "grave", pos: "形/名", correct: "（事態が）重大な／墓", full: "【名】墓穴、墓 【形】（事態などが）重大な、深刻な" },
+            { id: 17, type: "poly", word: "minute", pos: "形容詞", correct: "極めて細かい・詳細な", full: "【名】分、瞬間 【形】（発音：マイニュート）極めて細かい、詳細な" },
+            { id: 18, type: "poly", word: "state", pos: "動/名", correct: "（明確に）述べる／状態・国家", full: "【名】状態、州、国家 【動】（明確に）述べる" },
+            { id: 19, type: "poly", word: "mean", pos: "形/動", correct: "意地悪な・けちな／意味する", full: "【動】意味する、意図する 【形】意地悪な、けちな、（平均の）" },
+            { id: 20, type: "poly", word: "means", pos: "名詞", correct: "手段・方法／資力・財産", full: "【名】手段・方法、資力・財産（単複同形）" },
+
+            // --- 派生語 (Derived Words: id 201 - 400) ---
+            { id: 201, type: "derived", word: "ruling", pos: "形容詞", correct: "支配的な／与党の", full: "【形】支配的な、与党の 【名】判決" },
+            { id: 202, type: "derived", word: "striking", pos: "形容詞", correct: "著しい・目立つ", full: "【形】著しい、目立つ、人目を引く" },
+            { id: 203, type: "derived", word: "telling", pos: "形容詞", correct: "効果的な／核心を突いた", full: "【形】効果的な、核心を突いた、感情を表す" },
+            { id: 204, type: "derived", word: "promising", pos: "形容詞", correct: "前途有望な", full: "【形】前途有望な、見込みのある" },
+            { id: 205, type: "derived", word: "exacting", pos: "形容詞", correct: "厳しい・多くの労力を要する", full: "【形】厳しい、厳格な、多くの労力を要する" },
+            { id: 206, type: "derived", word: "demanding", pos: "形容詞", correct: "（仕事等が）骨の折れる・厳しい", full: "【形】要求の厳しい、骨の折れる" },
+            { id: 207, type: "derived", word: "reserved", pos: "形容詞", correct: "控えめな／予約済みの", full: "【形】（態度が）控えめな、内気な、予約済みの" },
+            { id: 208, type: "derived", word: "detached", pos: "形容詞", correct: "客観的な・切り離された", full: "【形】客観的な、公平な、切り離された" },
+            { id: 209, type: "derived", word: "involved", pos: "形容詞", correct: "複雑な／関与した", full: "【形】入り組んだ、複雑な、関与した" },
+            { id: 210, type: "derived", word: "assumption", pos: "名詞", correct: "引き受け・（権力の）掌握／仮定", full: "【名】仮定、引き受け、（権力・責任などの）掌握" },
+            { id: 211, type: "derived", word: "provision", pos: "名詞", correct: "規定・条項／供給・準備", full: "【名】供給、準備、規定・条項 （※provisionsで食料）" },
+            { id: 212, type: "derived", word: "considerable", pos: "形容詞", correct: "かなりの・相当な", full: "【形】かなりの、相当な （※considerateは思いやりのある）" },
+            { id: 213, type: "derived", word: "considerate", pos: "形容詞", correct: "思いやりのある", full: "【形】思いやりのある、親切な" },
+            { id: 214, type: "derived", word: "respectful", pos: "形容詞", correct: "礼儀正しい・丁寧な", full: "【形】礼儀正しい、敬意を表する （※respectiveはそれぞれの）" },
+            { id: 215, type: "derived", word: "respective", pos: "形容詞", correct: "それぞれの・各自の", full: "【形】それぞれの、各自の" },
+            { id: 216, type: "derived", word: "economic", pos: "形容詞", correct: "経済の・経済学の", full: "【形】経済の （※economicalは節約になる・お得な）" },
+            { id: 217, type: "derived", word: "economical", pos: "形容詞", correct: "節約になる・経済的な", full: "【形】節約になる、安上がりの" },
+            { id: 218, type: "derived", word: "industrial", pos: "形容詞", correct: "産業の・工業の", full: "【形】産業の （※industriousは勤勉な）" },
+            { id: 219, type: "derived", word: "industrious", pos: "形容詞", correct: "勤勉な・熱心な", full: "【形】勤勉な、熱心な" },
+            { id: 220, type: "derived", word: "invaluable", pos: "形容詞", correct: "計り知れないほど価値のある", full: "【形】計り知れない価値のある（※in-は否定ではなく強意）" }
+        ];
+
+        // --- 2. APPLICATION STATE ---
+        const LOCAL_STORAGE_KEY = "gmarch_vocab_wrong_ids";
+        
+        let currentCategory = "all"; // "all", "poly", "derived"
+        let currentMode = "normal"; // "normal", "review"
+        let activeQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let wronglyAnsweredCurrentSession = [];
+
+        // --- 3. LOCAL STORAGE MANAGEMENT ---
+        function getWrongWordIds() {
+            try {
+                const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error("Storage read error", e);
+                return [];
+            }
+        }
+
+        function saveWrongWordId(id) {
+            let ids = getWrongWordIds();
+            if (!ids.includes(id)) {
+                ids.push(id);
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ids));
+            }
+            updateWrongCountBadge();
+        }
+
+        function removeWrongWordId(id) {
+            let ids = getWrongWordIds();
+            ids = ids.filter(item => item !== id);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ids));
+            updateWrongCountBadge();
+        }
+
+        function clearAllWrongIds() {
+            if (confirm("過去に間違えた問題やストックした問題の記憶（復習リスト）を全てリセットしますか？")) {
+                localStorage.removeItem(LOCAL_STORAGE_KEY);
+                updateWrongCountBadge();
+                alert("復習リストをリセットしました。");
+            }
+        }
+
+        function updateWrongCountBadge() {
+            const wrongIds = getWrongWordIds();
+            const badge = document.getElementById("badge-wrong-count");
+            const btnReview = document.getElementById("btn-start-review");
+            
+            // Filter by current category if needed
+            let filteredWrongCount = wrongIds.length;
+            if (currentCategory !== "all") {
+                filteredWrongCount = wrongIds.filter(id => {
+                    const item = VOCAB_DATA.find(v => v.id === id);
+                    return item && item.type === currentCategory;
+                }).length;
+            }
+
+            badge.textContent = filteredWrongCount;
+            if (filteredWrongCount === 0) {
+                btnReview.disabled = true;
+            } else {
+                btnReview.disabled = false;
+            }
+        }
+
+        // --- 4. NAVIGATION & SCREEN CONTROLS ---
+        function showScreen(screenId) {
+            document.getElementById("screen-menu").classList.add("hidden");
+            document.getElementById("screen-quiz").classList.add("hidden");
+            document.getElementById("screen-result").classList.add("hidden");
+            
+            document.getElementById(screenId).classList.remove("hidden");
+        }
+
+        // --- 5. QUIZ LOGIC ---
+        function startQuiz(mode) {
+            currentMode = mode;
+            currentQuestionIndex = 0;
+            score = 0;
+            wronglyAnsweredCurrentSession = [];
+
+            // Filter pool by Category
+            let pool = VOCAB_DATA;
+            if (currentCategory !== "all") {
+                pool = VOCAB_DATA.filter(item => item.type === currentCategory);
+            }
+
+            if (mode === "normal") {
+                // Pick 10 random questions
+                const shuffled = [...pool].sort(() => 0.5 - Math.random());
+                activeQuizQuestions = shuffled.slice(0, Math.min(10, shuffled.length));
+            } else if (mode === "review") {
+                const wrongIds = getWrongWordIds();
+                const reviewPool = pool.filter(item => wrongIds.includes(item.id));
+                if (reviewPool.length === 0) {
+                    alert("選択したカテゴリに復習する問題がありません！");
+                    return;
+                }
+                const shuffled = [...reviewPool].sort(() => 0.5 - Math.random());
+                activeQuizQuestions = shuffled.slice(0, Math.min(10, shuffled.length));
+            }
+
+            showScreen("screen-quiz");
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const currentQuestion = activeQuizQuestions[currentQuestionIndex];
+            const total = activeQuizQuestions.length;
+
+            // Update Progress Header
+            document.getElementById("quiz-step-text").textContent = `Question ${currentQuestionIndex + 1}/${total}`;
+            document.getElementById("progress-bar-fill").style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
+            
+            const catTag = document.getElementById("quiz-category-tag");
+            catTag.textContent = currentQuestion.type === "poly" ? "多義語" : "派生語";
+            catTag.className = currentQuestion.type === "poly" 
+                ? "bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full text-[10px] font-bold" 
+                : "bg-teal-100 text-teal-700 px-2.5 py-0.5 rounded-full text-[10px] font-bold";
+
+            // Word Info
+            document.getElementById("word-pos").textContent = `【${currentQuestion.pos}】`;
+            document.getElementById("word-target").textContent = currentQuestion.word;
+
+            // Generate 4 Choices (1 Correct + 3 Random Distractors)
+            const distractorsPool = VOCAB_DATA.filter(item => item.id !== currentQuestion.id);
+            const shuffledDistractors = [...distractorsPool].sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            const choices = [
+                { text: currentQuestion.correct, isCorrect: true },
+                ...shuffledDistractors.map(d => ({ text: d.correct, isCorrect: false }))
+            ].sort(() => 0.5 - Math.random());
+
+            // Render Options
+            const container = document.getElementById("options-container");
+            container.innerHTML = "";
+
+            choices.forEach((choice, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "btn-option w-full bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 text-slate-800 font-bold p-3.5 rounded-xl text-left transition flex items-center justify-between text-sm shadow-sm";
+                btn.innerHTML = `
+                    <span>${choice.text}</span>
+                    <i class="fa-regular fa-circle text-slate-300"></i>
+                `;
+                btn.onclick = () => handleAnswer(choice.isCorrect, btn, currentQuestion);
+                container.appendChild(btn);
+            });
+
+            // Hide Feedback Card & Reset Stock Button
+            document.getElementById("feedback-card").classList.add("hidden");
+            const btnStock = document.getElementById("btn-stock-question");
+            btnStock.classList.add("hidden");
+        }
+
+        function handleAnswer(isCorrect, selectedBtn, question) {
+            // Disable all option buttons
+            const buttons = document.querySelectorAll(".btn-option");
+            buttons.forEach(btn => btn.disabled = true);
+
+            const feedbackCard = document.getElementById("feedback-card");
+            const feedbackBanner = document.getElementById("feedback-banner");
+            const feedbackMeaning = document.getElementById("feedback-meaning-full");
+
+            if (isCorrect) {
+                score++;
+                selectedBtn.classList.remove("border-slate-200");
+                selectedBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+                selectedBtn.querySelector("i").className = "fa-solid fa-circle-check text-emerald-500 text-lg";
+
+                feedbackBanner.className = "flex items-center space-x-2 font-bold text-sm text-emerald-600";
+                feedbackBanner.innerHTML = `<i class="fa-solid fa-circle-check text-xl"></i><span>正解！素晴らしい！</span>`;
+
+                // 復習モードで正解した場合はリストから除外
+                if (currentMode === "review") {
+                    removeWrongWordId(question.id);
+                }
+
+                // 「自信がない問題」ストックボタンのセットアップ
+                setupStockButton(question.id);
+            } else {
+                if (!wronglyAnsweredCurrentSession.includes(question.id)) {
+                    wronglyAnsweredCurrentSession.push(question.id);
+                }
+                saveWrongWordId(question.id);
+
+                selectedBtn.classList.remove("border-slate-200");
+                selectedBtn.classList.add("border-red-500", "bg-red-50", "text-red-900");
+                selectedBtn.querySelector("i").className = "fa-solid fa-circle-xmark text-red-500 text-lg";
+
+                // Highlight correct answer
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes(question.correct)) {
+                        btn.classList.add("border-emerald-500", "bg-emerald-50");
+                    }
+                });
+
+                feedbackBanner.className = "flex items-center space-x-2 font-bold text-sm text-red-600";
+                feedbackBanner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-xl"></i><span>不正解（復習リストに記録しました）</span>`;
+            }
+
+            feedbackMeaning.textContent = question.full;
+            feedbackCard.classList.remove("hidden");
+        }
+
+        // 自信がない問題をストック・解除するための関数
+        function setupStockButton(questionId) {
+            const btnStock = document.getElementById("btn-stock-question");
+            btnStock.classList.remove("hidden");
+
+            const updateButtonUI = () => {
+                const isStocked = getWrongWordIds().includes(questionId);
+                if (isStocked) {
+                    btnStock.className = "w-full bg-amber-500 text-white font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-1.5 shadow-sm";
+                    btnStock.innerHTML = `<i class="fa-solid fa-bookmark"></i><span>ストック済み（復習リストへ追加中）</span>`;
+                } else {
+                    btnStock.className = "w-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold py-2 px-3 rounded-lg text-xs transition flex items-center justify-center gap-1.5";
+                    btnStock.innerHTML = `<i class="fa-regular fa-bookmark text-amber-600"></i><span>正解したけど自信がない（復習リストへ保存）</span>`;
+                }
+            };
+
+            updateButtonUI();
+
+            btnStock.onclick = () => {
+                const isStocked = getWrongWordIds().includes(questionId);
+                if (isStocked) {
+                    removeWrongWordId(questionId);
+                    wronglyAnsweredCurrentSession = wronglyAnsweredCurrentSession.filter(id => id !== questionId);
+                } else {
+                    saveWrongWordId(questionId);
+                    if (!wronglyAnsweredCurrentSession.includes(questionId)) {
+                        wronglyAnsweredCurrentSession.push(questionId);
+                    }
+                }
+                updateButtonUI();
+            };
+        }
+
+        // --- 6. RESULTS LOGIC ---
+        function showResults() {
+            showScreen("screen-result");
+
+            const total = activeQuizQuestions.length;
+            document.getElementById("result-score").textContent = score;
+            document.getElementById("result-correct-count").textContent = `${score} / ${total}問`;
+            document.getElementById("result-added-wrong").textContent = `${wronglyAnsweredCurrentSession.length}語`;
+            document.getElementById("result-total-wrong").textContent = `${getWrongWordIds().length}語`;
+
+            const evalText = document.getElementById("result-evaluation");
+            const percentage = (score / total) * 100;
+            if (percentage === 100) {
+                evalText.textContent = "🎉 完璧です！GMARCH合格レベルの知識です！";
+            } else if (percentage >= 70) {
+                evalText.textContent = "👍 非常に良いペースです。間違えた・ストックした部分を復習しましょう！";
+            } else {
+                evalText.textContent = "📚 伸びしろタップリ！復習モードで繰り返し練習しましょう。";
+            }
+        }
+
+        // --- 7. EVENT LISTENERS & INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // Category Buttons Event
+            const catBtns = document.querySelectorAll(".cat-btn");
+            catBtns.forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    catBtns.forEach(b => {
+                        b.className = "cat-btn bg-white border-2 border-slate-200 text-slate-600 font-medium text-xs py-2 px-1 rounded-lg text-center hover:border-slate-300 transition";
+                    });
+                    const target = e.currentTarget;
+                    target.className = "cat-btn bg-indigo-50 border-2 border-indigo-600 text-indigo-700 font-bold text-xs py-2 px-1 rounded-lg text-center transition";
+
+                    if (target.id === "cat-all") currentCategory = "all";
+                    if (target.id === "cat-poly") currentCategory = "poly";
+                    if (target.id === "cat-derived") currentCategory = "derived";
+
+                    updateWrongCountBadge();
+                });
+            });
+
+            // Start Buttons
+            document.getElementById("btn-start-normal").onclick = () => startQuiz("normal");
+            document.getElementById("btn-start-review").onclick = () => startQuiz("review");
+
+            // Navigation Buttons
+            document.getElementById("btn-home").onclick = () => {
+                updateWrongCountBadge();
+                showScreen("screen-menu");
+            };
+            document.getElementById("btn-retry").onclick = () => startQuiz(currentMode);
+            document.getElementById("btn-back-menu").onclick = () => {
+                updateWrongCountBadge();
+                showScreen("screen-menu");
+            };
+
+            // Next Question Button
+            document.getElementById("btn-next-question").onclick = () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < activeQuizQuestions.length) {
+                    renderQuestion();
+                } else {
+                    showResults();
+                }
+            };
+
+            // Storage Clear Button
+            document.getElementById("btn-clear-storage").onclick = clearAllWrongIds;
+
+            // Initial load
+            updateWrongCountBadge();
+        });
+    </script>
+</body>
+</html>
